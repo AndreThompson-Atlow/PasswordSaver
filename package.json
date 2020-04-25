@@ -1,0 +1,29 @@
+{
+	"name": "passwordsaver",
+	"version": "1.0.0",
+	"description": "A password management app",
+	"main": "server.js",
+	"dependencies": {
+		"axios": "^0.19.2",
+		"bcryptjs": "^2.4.3",
+		"concurrently": "^5.2.0",
+		"config": "^3.3.1",
+		"express": "^4.17.1",
+		"express-validator": "^6.4.0",
+		"gravatar": "^1.8.0",
+		"heroku": "^7.39.5",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.9.10",
+		"nodemon": "^2.0.3",
+		"normalize-url": "^5.0.0",
+		"tailwindcss": "^1.3.4"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"build:css": "tailwind build src/tailwind.css -o dist/style.css",
+		"start": "node server",
+		"server": "nodemon server"
+	},
+	"author": "Andre Thompson",
+	"license": "MIT"
+}

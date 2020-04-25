@@ -1,0 +1,21 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+table {
+	@apply min-w-full;
+}
+
+th {
+	@apply px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-blue-500 uppercase tracking-wider;
+}
+
+tbody {
+	@apply bg-white;
+}
+
+td {
+	@apply px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500;
+}

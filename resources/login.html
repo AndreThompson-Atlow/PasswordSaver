@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script
+			src="https://kit.fontawesome.com/8b85f32201.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="style.css" />
+		<title>Tailwind CSS Sandbox</title>
+	</head>
+	<body class="bg-gray-50 h-screen overflow-hidden">
+		<div class="flex flex-col space-between h-screen">
+			<nav class="bg-white shadow">
+				<div class="flex items-center justify-between p-4">
+					<div class="flex items-center flex-grow text-black mr-6">
+						<i class="fas fa-code ml-8 mr-3 text-xl"></i>
+						<span class="font-semibold text-xl">Password Saver</span>
+					</div>
+					<div class="flex items-center flex-shrink-0 text-black m-0">
+						<div class="text-sm flex-grow">
+							<a
+								href="./welcome.html"
+								class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+							>
+								Dashboard
+							</a>
+							<a
+								href="./login.html"
+								class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out"
+							>
+								Login
+							</a>
+							<a
+								href="./register.html"
+								class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+							>
+								Register
+							</a>
+							<!-- <span class="ml-8 rounded-md shadow-sm">
+                                    <button
+                                        type="button"
+                                        class="relative inline-flex items-center ml-4 mr-4 px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-900 bg-blue-500 hover:bg-blue-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-600 active:bg-blue-600 transition duration-150 ease-in-out"
+                                    >
+                                        <i class="fal fa-plus mr-2 text-lg"></i>
+                                        <span class="mr-2">Password</span>
+                                    </button>
+                                </span> -->
+						</div>
+					</div>
+				</div>
+			</nav>
+			<!-- Main Content  -->
+
+			<div
+				class="flex items-center justify-center bg-gray-50 mx-auto items-center flex-grow"
+			>
+				<div class="w-full">
+					<div>
+						<h2
+							class="mt-6 text-center text-4xl leading-9 font-extrabold text-gray-900"
+						>
+							Login to your account
+						</h2>
+					</div>
+					<form class="mt-10" action="#" method="POST">
+						<input type="hidden" name="remember" value="true" />
+						<div class="rounded-md shadow-sm">
+							<div>
+								<input
+									aria-label="Email address"
+									name="email"
+									type="email"
+									required
+									class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-md sm:leading-7"
+									placeholder="Email address"
+								/>
+							</div>
+							<div class="-mt-px">
+								<input
+									aria-label="Password"
+									name="password"
+									type="password"
+									required
+									class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-md sm:leading-7"
+									placeholder="Password"
+								/>
+							</div>
+						</div>
+
+						<div class="mt-6 flex items-center justify-between">
+							<div class="flex items-center">
+								<input
+									id="remember_me"
+									type="checkbox"
+									class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+								/>
+								<label
+									for="remember_me"
+									class="ml-2 block text-sm leading-5 text-gray-900"
+								>
+									Remember me
+								</label>
+							</div>
+
+							<div class="text-sm leading-5">
+								<a
+									href="#"
+									class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+								>
+									Forgot your password?
+								</a>
+							</div>
+						</div>
+
+						<div class="mt-10">
+							<button
+								type="submit"
+								class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out"
+							>
+								Sign in
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Footer Section -->
+
+			<div class="w-full p-3 pr-32 pl-32">
+				<div class="border-0 border-t p-3 pt-5 flex text-center justify-around">
+					<div class="section text-gray-600">
+						Andre Thompson, Full Stack Developer
+					</div>
+					<div class="section">
+						View my portfolio <a href="#!" class="text-blue-600">here</a>.
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
