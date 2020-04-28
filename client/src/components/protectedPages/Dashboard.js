@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getAccount } from '../../actions/account';
 import SavedPassword from '../layouts/SavedPassword';
@@ -7,7 +8,6 @@ import SavedPassword from '../layouts/SavedPassword';
 const Dashboard = ({ accounts, getAccount }) => {
 	useEffect(() => {
 		getAccount();
-		console.log(accounts);
 	}, []);
 
 	return (
@@ -15,7 +15,7 @@ const Dashboard = ({ accounts, getAccount }) => {
 			{/* <!-- Left of Container --> */}
 			<div></div>
 			{/* <!-- Inside Container --> */}
-			<div className='relative inline-block max-w-6xl mx-auto flex-grow overflow-hidden'>
+			<div className='relative inline-block max-w-6xl mx-auto flex-grow '>
 				{/* <!-- Table of Passwords --> */}
 				<div className='flex flex-col p-3'>
 					<div className='-my-2 py-2 -mx-8 px-8'>
@@ -30,25 +30,6 @@ const Dashboard = ({ accounts, getAccount }) => {
 									</tr>
 								</thead>
 								<tbody>
-									{/* <Fragment>
-										{accounts !== null &&
-											accounts.length > 0 &&
-											accounts.map((account) => (
-												<tr>
-													<td>{account.site}</td>
-													<td>{account.login}</td>
-													<td>{account.password}</td>
-													<td>
-														<i className='far fa-eye text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-														<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-													</td>
-												</tr>
-											))}
-										{accounts == null ||
-											(accounts.length <= 0 && (
-												<p>You don't have any saved passwords.</p>
-											))}
-									</Fragment> */}
 									<Fragment>
 										{accounts !== null &&
 											accounts.length > 0 &&
@@ -141,20 +122,22 @@ const Dashboard = ({ accounts, getAccount }) => {
 									</div>
 									<div>
 										<span className='inline-flex rounded-md shadow-sm ml-8'>
-											<button
+											<Link
+												to='/dashboard/GenPassword'
 												type='button'
 												className='inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-indigo active:bg-blue-700 transition ease-in-out duration-150'
 											>
 												Generate Password
-											</button>
+											</Link>
 										</span>
 										<span className='inline-flex rounded-md shadow-sm ml-8'>
-											<button
+											<Link
+												to='/dashboard/AddPassword'
 												type='button'
 												className='inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-indigo active:bg-blue-700 transition ease-in-out duration-150'
 											>
-												New Password
-											</button>
+												Add Password
+											</Link>
 										</span>
 									</div>
 								</div>

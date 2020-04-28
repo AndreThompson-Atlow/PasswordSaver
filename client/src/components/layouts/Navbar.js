@@ -44,15 +44,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 				});
 				break;
 			case '/Dashboard':
+			case '/dashboard/AddPassword':
+			case '/dashboard/GenPassword':
 				setLinks({
 					...offLinks,
-					welcomeActive: true,
+					dashActive: true,
 				});
 				break;
 			case '/Settings':
 				setLinks({
 					...offLinks,
-					welcomeActive: true,
+					settingsActive: true,
 				});
 				break;
 			default:

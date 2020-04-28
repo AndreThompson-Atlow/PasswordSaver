@@ -4,7 +4,7 @@ import { ADD_ACCOUNT, GET_ACCOUNT } from './types';
 
 // Add an Account
 
-export const addAccount = (login, password, site) => async (dispatch) => {
+export const addAccount = ({ login, password, site }) => async (dispatch) => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -17,11 +17,12 @@ export const addAccount = (login, password, site) => async (dispatch) => {
 			type: ADD_ACCOUNT,
 			payload: res.data,
 		});
+		dispatch(setAlert('Password Saved', 'danger'));
 	} catch (err) {
 		const errors = err.response.data.errors;
 
 		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'success')));
 		}
 	}
 };

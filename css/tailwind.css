@@ -25,3 +25,7 @@ td {
 	background: lightblue;
 	color: #333;
 }
+
+.max-height-mid {
+	max-height: 60%;
+}

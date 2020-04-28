@@ -15008,8 +15008,12 @@ td {
   padding: 0.8rem;
   margin: 1rem 0;
   opacity: 0.9;
-  background: var(--light-color);
+  background: lightblue;
   color: #333;
+}
+
+.max-height-mid {
+  max-height: 60%;
 }
 
 @media (min-width: 640px) {

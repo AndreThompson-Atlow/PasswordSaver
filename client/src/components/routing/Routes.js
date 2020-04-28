@@ -8,6 +8,8 @@ import SecurePasswords from '../guestPages/SecurePasswords';
 import Alert from '../layouts/Alert';
 import Dashboard from '../protectedPages/Dashboard';
 import PrivateRoute from '../routing/PrivateRoute';
+import NewPassword from '../protectedPages/NewPassword';
+import GenPassword from '../protectedPages/GenPassword';
 
 const Routes = (props) => {
 	return (
@@ -19,6 +21,16 @@ const Routes = (props) => {
 				<Route exact path='/Register' component={Register} />
 				<Route exact path='/SecurePasswords' component={SecurePasswords} />
 				<PrivateRoute exact path='/Dashboard' component={Dashboard} />
+				<PrivateRoute
+					exact
+					path='/Dashboard/AddPassword'
+					component={NewPassword}
+				/>
+				<PrivateRoute
+					exact
+					path='/Dashboard/GenPassword'
+					component={GenPassword}
+				/>
 				<Route component={NotFound} />
 			</Switch>
 		</Fragment>

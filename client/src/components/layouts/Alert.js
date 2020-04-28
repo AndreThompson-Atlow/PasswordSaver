@@ -8,7 +8,7 @@ const Alert = ({ alerts }) =>
 	alerts.map((alert) => (
 		<div
 			key={alert.id}
-			class='max-w-sm mx-auto w-full bg-red-600 shadow-lg rounded-lg pointer-events-auto'
+			class='max-w-sm mx-auto w-full bg-blue-400 shadow-lg rounded-lg pointer-events-auto'
 		>
 			<div class='rounded-lg shadow-xs overflow-hidden'>
 				<div class='p-4'>
