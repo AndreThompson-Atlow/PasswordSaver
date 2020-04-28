@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getAccount } from '../../actions/account';
+import SavedPassword from '../layouts/SavedPassword';
 
-const Dashboard = () => {
+const Dashboard = ({ accounts, getAccount }) => {
+	useEffect(() => {
+		getAccount();
+		console.log(accounts);
+	}, []);
+
 	return (
 		<div className='w-full mx-auto px-8 flex-grow flex'>
 			{/* <!-- Left of Container --> */}
@@ -21,88 +30,42 @@ const Dashboard = () => {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Facebook</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>123456</td>
-										<td>
-											<i className='far fa-eye text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
-									<tr>
-										<td>Stackoverflow</td>
-										<td>andrethompsonCS@gmail.com</td>
-										<td>********</td>
-										<td>
-											<i className='far fa-eye-slash text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
-											<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
-										</td>
-									</tr>
+									{/* <Fragment>
+										{accounts !== null &&
+											accounts.length > 0 &&
+											accounts.map((account) => (
+												<tr>
+													<td>{account.site}</td>
+													<td>{account.login}</td>
+													<td>{account.password}</td>
+													<td>
+														<i className='far fa-eye text-blue-500 ml-3 p-2 hover:bg-gray-300'></i>
+														<i className='far fa-copy text-blue-500 ml-1 p-2 hover:bg-gray-300'></i>
+													</td>
+												</tr>
+											))}
+										{accounts == null ||
+											(accounts.length <= 0 && (
+												<p>You don't have any saved passwords.</p>
+											))}
+									</Fragment> */}
+									<Fragment>
+										{accounts !== null &&
+											accounts.length > 0 &&
+											accounts.map((account) => (
+												<SavedPassword
+													site={account.site}
+													login={account.login}
+													password={account.password}
+												/>
+											))}
+										{accounts == null ||
+											(accounts.length <= 0 && (
+												<p className='p-5 m-5 text-red-400 text-center '>
+													You don't have any saved passwords.
+												</p>
+											))}
+									</Fragment>
 								</tbody>
 							</table>
 							<div className='bg-gray-100 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
@@ -206,4 +169,12 @@ const Dashboard = () => {
 	);
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+	getAccount: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	accounts: state.account.accounts,
+});
+
+export default connect(mapStateToProps, { getAccount })(Dashboard);

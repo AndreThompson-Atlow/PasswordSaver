@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,9 +8,19 @@ const Login = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
+		checked: false,
 	});
 
-	const { email, password } = formData;
+	const { email, password, checked } = formData;
+
+	useEffect(() => {
+		if (localStorage.getItem('email') !== null) {
+			setFormData({
+				...formData,
+				email: localStorage.getItem('email'),
+			});
+		}
+	}, []);
 
 	const onChange = (e) =>
 		setFormData({
@@ -20,7 +30,17 @@ const Login = ({ login, isAuthenticated }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		if (checked) {
+			localStorage.setItem('email', email);
+		}
 		login(email, password);
+	};
+
+	const onClick = (e) => {
+		setFormData({
+			...formData,
+			checked: !checked,
+		});
 	};
 
 	if (isAuthenticated) {
@@ -74,6 +94,8 @@ const Login = ({ login, isAuthenticated }) => {
 								id='remember_me'
 								type='checkbox'
 								className='form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out'
+								value={checked}
+								onChange={(e) => onClick(e)}
 							/>
 							<label
 								htmlFor='remember_me'

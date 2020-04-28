@@ -1,7 +1,13 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 const Welcome = () => {
+	if (localStorage.getItem('email') !== null) {
+		if (localStorage.getItem('arrival') == 'true') {
+			localStorage.setItem('arrival', false);
+			return <Redirect to='/Login' />;
+		}
+	}
 	return (
 		<Fragment>
 			<div className='relative bg-white overflow-hidden flex-grow'>

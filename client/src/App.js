@@ -13,6 +13,7 @@ import { loadUser } from './actions/auth';
 
 function App() {
 	useEffect(() => {
+		localStorage.setItem('arrival', true);
 		setAuthToken(localStorage.token);
 		store.dispatch(getAccount());
 		store.dispatch(loadUser());
