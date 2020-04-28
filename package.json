@@ -18,13 +18,17 @@
 		"nodemon": "^2.0.3",
 		"normalize-url": "^5.0.0",
 		"postcss-cli": "^7.1.0",
+		"react-router-dom": "^5.1.2",
 		"tailwindcss": "^1.3.4"
 	},
 	"devDependencies": {},
 	"scripts": {
-		"build:css": " postcss css/tailwind.css -o dist/style.css",
+		"build:css": " postcss css/tailwind.css -o client/src/App.css",
 		"start": "node server",
-		"server": "nodemon server"
+		"server": "nodemon server",
+		"client": "npm start --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\"",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"author": "Andre Thompson",
 	"license": "MIT"
