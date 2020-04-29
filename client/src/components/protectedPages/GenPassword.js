@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addAccount } from '../../actions/account';
+import { getAccount } from '../../actions/account';
 import { setAlert } from '../../actions/alert';
 
 const generator = require('generate-password');
@@ -24,6 +25,7 @@ const GenPassword = ({ addAccount }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		addAccount({ site, login, password });
+		getAccount();
 		setFormData({
 			site: '',
 			login: '',

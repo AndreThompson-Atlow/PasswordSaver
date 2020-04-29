@@ -1,13 +1,36 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getAccount } from '../../actions/account';
 import SavedPassword from '../layouts/SavedPassword';
 
-const Dashboard = ({ accounts, getAccount }) => {
+const Dashboard = ({ accounts }) => {
+	const [pageNum, setPageNum] = useState(1);
+	const [numOfPages, setNumOfPages] = useState(Math.ceil(accounts.length / 6));
+	const [page, setPage] = useState([]);
+	const [pages, setPages] = useState([null]);
+
+	const onClick = (e) => {
+		setPageNum(pageNum + 1);
+		setPage(pages[pageNum]);
+	};
+
 	useEffect(() => {
-		getAccount();
+		if (numOfPages > 1) {
+			for (let i = 0; i < 6; i++) {
+				setPages(pages.push(accounts.slice(i * 6, i * 6 + 6)));
+			}
+		}
+		setPage([
+			pages[1][0],
+			pages[1][1],
+			pages[1][2],
+			pages[1][3],
+			pages[1][4],
+			pages[1][5],
+		]);
+		console.log(pages[1]);
 	}, []);
 
 	return (
@@ -29,26 +52,30 @@ const Dashboard = ({ accounts, getAccount }) => {
 										<th></th>
 									</tr>
 								</thead>
-								<tbody>
-									<Fragment>
-										{accounts !== null &&
-											accounts.length > 0 &&
-											accounts.map((account) => (
-												<SavedPassword
-													site={account.site}
-													login={account.login}
-													password={account.password}
-												/>
-											))}
-										{accounts == null ||
-											(accounts.length <= 0 && (
-												<p className='p-5 m-5 text-red-400 text-center '>
-													You don't have any saved passwords.
-												</p>
-											))}
-									</Fragment>
-								</tbody>
+								{page !== null && (
+									<tbody>
+										{/* <Fragment>
+											{page !== null &&
+												page !== undefined &&
+												page.map((account, index) => (
+													<SavedPassword
+														key={index}
+														site={account.site}
+														login={account.login}
+														password={account.password}
+													/>
+												))}
+										</Fragment> */}
+									</tbody>
+								)}
 							</table>
+
+							{page == null ||
+								(page.length <= 0 && (
+									<p className='p-5 m-5 text-red-400 text-center '>
+										You don't have any saved passwords.
+									</p>
+								))}
 							<div className='bg-gray-100 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
 								<div className='flex-1 flex justify-between sm:hidden'>
 									<a
@@ -77,9 +104,9 @@ const Dashboard = ({ accounts, getAccount }) => {
 													viewBox='0 0 20 20'
 												>
 													<path
-														fill-rule='evenodd'
+														fillRule='evenodd'
 														d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
-														clip-rule='evenodd'
+														clipRule='evenodd'
 													/>
 												</svg>
 											</button>
@@ -87,23 +114,26 @@ const Dashboard = ({ accounts, getAccount }) => {
 												type='button'
 												className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 hover:text-blue-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-blue-700 transition ease-in-out duration-150'
 											>
-												1
+												{pageNum - 1}
 											</button>
 											<button
 												type='button'
 												className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'
 											>
-												2
+												{pageNum}
 											</button>
 											<button
 												type='button'
 												className='hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'
 											>
-												3
+												{pageNum + 1}
 											</button>
 
 											<button
 												type='button'
+												onClick={(e) => {
+													onClick(e);
+												}}
 												className='-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150'
 											>
 												<svg
@@ -112,9 +142,9 @@ const Dashboard = ({ accounts, getAccount }) => {
 													viewBox='0 0 20 20'
 												>
 													<path
-														fill-rule='evenodd'
+														fillRule='evenodd'
 														d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
-														clip-rule='evenodd'
+														clipRule='evenodd'
 													/>
 												</svg>
 											</button>
@@ -154,6 +184,7 @@ const Dashboard = ({ accounts, getAccount }) => {
 
 Dashboard.propTypes = {
 	getAccount: PropTypes.func.isRequired,
+	accounts: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
