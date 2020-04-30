@@ -15,6 +15,7 @@ router.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id);
 		const accounts = user.accounts;
+
 		res.json(accounts);
 	} catch (err) {
 		console.error(err.message);
@@ -22,6 +23,22 @@ router.get('/', auth, async (req, res) => {
 	}
 });
 
+// @route 		DELETE api/accounts:id
+// @desc		Remove an account from the accounts list.
+// @access		Private
+router.delete('/:key', auth, async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id);
+		const index = req.params.key;
+		console.log(index);
+		user.accounts.splice(index, 1);
+		user.save();
+		res.json({ msg: 'account removed successfully' });
+	} catch (err) {
+		// console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
 // @route       POST api/accounts
 // @desc        Add an account to a users password list
 // @access      Private
@@ -51,15 +68,16 @@ router.post(
 		const { login, site, password } = req.body;
 
 		try {
+			const user = await User.findById(req.user.id).select('-password');
 			const account = new Account({
 				login,
 				site,
 				password,
+				user,
 			});
-			const user = await User.findById(req.user.id).select('-password');
 			user.accounts.push(account);
 			user.save();
-			res.json({ msg: 'Account added' });
+			res.json({ msg: 'account added successfully' });
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send('Server Error');

@@ -2,23 +2,27 @@ import React, { Fragment, useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getAccount } from '../../actions/account';
+import { getAccount, deleteAccount } from '../../actions/account';
 import SavedPassword from '../layouts/SavedPassword';
 
-const Dashboard = ({ accounts }) => {
+const Dashboard = ({ accounts, getAccount, deleteAccount }) => {
 	const [pageNum, setPageNum] = useState(0);
 
 	const pages = useMemo(() => {
 		const pages = [];
 
-		for (let i = 0; i < accounts.length; i += 6) {
-			pages.push(accounts.slice(i, i + 6));
+		for (let i = 0; i < accounts.length; i += 8) {
+			pages.push(accounts.slice(i, i + 8));
 		}
 
 		return pages;
 	}, [accounts]);
 
 	const numOfPages = pages.length;
+
+	useEffect(() => {
+		// getAccount();
+	}, []);
 
 	const onClick = (num) => {
 		if (num == -1 && pageNum == 0) {
@@ -56,9 +60,12 @@ const Dashboard = ({ accounts }) => {
 												pages[pageNum] !== undefined &&
 												pages[pageNum].map((account, index) => (
 													<SavedPassword
+														keyValue={pageNum * 8 + index}
 														key={index}
+														id={account._id}
 														site={account.site}
 														login={account.login}
+														// deleteAccount={deleteAccount}
 														password={account.password}
 													/>
 												))}
@@ -172,6 +179,7 @@ const Dashboard = ({ accounts }) => {
 
 Dashboard.propTypes = {
 	getAccount: PropTypes.func.isRequired,
+	deleteAccount: PropTypes.func.isRequired,
 	accounts: PropTypes.array,
 };
 
@@ -179,4 +187,6 @@ const mapStateToProps = (state) => ({
 	accounts: state.account.accounts,
 });
 
-export default connect(mapStateToProps, { getAccount })(Dashboard);
+export default connect(mapStateToProps, { getAccount, deleteAccount })(
+	Dashboard
+);

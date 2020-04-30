@@ -161,7 +161,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const authLinks = (
 		<div className='text-sm flex-grow'>
 			{dashboard}
-			{settings}
+			{/* {settings} */}
 			{logoutTag}
 		</div>
 	);

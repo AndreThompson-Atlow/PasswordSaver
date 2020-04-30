@@ -1,4 +1,4 @@
-import { GET_ACCOUNT, ADD_ACCOUNT } from '../actions/types';
+import { GET_ACCOUNT, ADD_ACCOUNT, DELETE_ACCOUNT } from '../actions/types';
 
 const initialState = {
 	accounts: [],
@@ -10,10 +10,12 @@ export default function (state = initialState, action) {
 	switch (type) {
 		case ADD_ACCOUNT:
 		case GET_ACCOUNT:
+		case DELETE_ACCOUNT:
 			return {
 				...state,
 				accounts: payload,
 			};
+
 		default:
 			return state;
 	}

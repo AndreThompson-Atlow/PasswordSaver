@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
+import { deleteAccount } from '../../actions/account';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const SavedPassword = ({ site, login, password }) => {
+const SavedPassword = ({
+	site,
+	login,
+	password,
+	keyValue,
+	id,
+	deleteAccount,
+}) => {
 	const [localPassword, setLocalPassword] = useState('******************');
 	function copyPassword(passToCopy) {
 		navigator.clipboard.writeText(passToCopy).then(
@@ -14,7 +24,7 @@ const SavedPassword = ({ site, login, password }) => {
 	}
 
 	function deletePassword() {
-		// Do Stuff
+		deleteAccount(keyValue);
 	}
 
 	function hideReveal() {
@@ -63,4 +73,8 @@ const SavedPassword = ({ site, login, password }) => {
 	);
 };
 
-export default SavedPassword;
+SavedPassword.propTypes = {
+	deleteAccount: PropTypes.func.isRequired,
+};
+
+export default connect(null, { deleteAccount })(SavedPassword);
