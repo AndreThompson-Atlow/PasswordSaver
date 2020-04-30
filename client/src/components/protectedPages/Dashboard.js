@@ -74,12 +74,11 @@ const Dashboard = ({ accounts, getAccount, deleteAccount }) => {
 								)}
 							</table>
 
-							{pages[0] == null ||
-								(pages[0].length <= 0 && (
-									<p className='p-5 m-5 text-red-400 text-center '>
-										You don't have any saved passwords.
-									</p>
-								))}
+							{pages[0] == undefined && (
+								<p className='p-5 m-5 text-red-400 text-center '>
+									You don't have any saved passwords.
+								</p>
+							)}
 							<div className='bg-gray-100 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
 								<div className='flex-1 flex justify-between sm:hidden'>
 									<a

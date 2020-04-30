@@ -8,11 +8,11 @@ const Footer = () => {
 					Andre Thompson, Full Stack Developer
 				</div>
 				<div className='section'>
-					View my portfolio{' '}
+					{/* View my portfolio{' '}
 					<a href='#!' className='text-blue-600'>
 						here
 					</a>
-					.
+					. */}
 				</div>
 			</div>
 		</div>
