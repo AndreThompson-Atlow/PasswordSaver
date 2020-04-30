@@ -15,7 +15,6 @@ router.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id);
 		const accounts = user.accounts;
-
 		res.json(accounts);
 	} catch (err) {
 		console.error(err.message);
@@ -30,10 +29,11 @@ router.delete('/:key', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id);
 		const index = req.params.key;
-		console.log(index);
 		user.accounts.splice(index, 1);
 		user.save();
-		res.json({ msg: 'account removed successfully' });
+		const accounts = user.accounts;
+
+		res.json(accounts);
 	} catch (err) {
 		// console.error(err.message);
 		res.status(500).send('Server Error');
@@ -77,7 +77,8 @@ router.post(
 			});
 			user.accounts.push(account);
 			user.save();
-			res.json({ msg: 'account added successfully' });
+			const accounts = user.accounts;
+			res.json(accounts);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send('Server Error');

@@ -8,9 +8,9 @@ export default function (state = initialState, action) {
 	const { type, payload } = action;
 
 	switch (type) {
-		case ADD_ACCOUNT:
 		case GET_ACCOUNT:
 		case DELETE_ACCOUNT:
+		case ADD_ACCOUNT:
 			return {
 				...state,
 				accounts: payload,

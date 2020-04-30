@@ -31,11 +31,11 @@ export const addAccount = ({ login, password, site }) => async (dispatch) => {
 export const deleteAccount = (key) => async (dispatch) => {
 	try {
 		console.log('about to dispatch 1');
-		await axios.delete(`/api/accounts/${key}`);
+		const res = await axios.delete(`/api/accounts/${key}`);
 		console.log('about to dispatch');
 		dispatch({
 			type: DELETE_ACCOUNT,
-			payload: key,
+			payload: res.data,
 		});
 
 		dispatch(setAlert('Account Deleted', 'success'));
