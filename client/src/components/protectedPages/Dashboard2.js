@@ -4,31 +4,39 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getAccount } from '../../actions/account';
 import SavedPassword from '../layouts/SavedPassword';
+let myChunk = [];
 
 const Dashboard = ({ accounts }) => {
-	const [pageNum, setPageNum] = useState(0);
+	const [data, setData] = useState({
+		currentPage: 1,
+		page: [{}, {}, {}, {}, {}, {}],
+		pages: [chunkArray(accounts, 6)],
+	});
 
-	const pages = useMemo(() => {
-		const pages = [];
+	function changePage(page) {
+		setData({
+			currentPage: page,
+			page: pages[currentPage],
+		});
+	}
 
-		for (let i = 0; i < accounts.length; i += 6) {
-			pages.push(accounts.slice(i, i + 6));
+	const { currentPage, page, pages } = data;
+	// changePage(1);
+	console.log(pages);
+
+	function chunkArray(myArray, chunk_size) {
+		var index = 0;
+		var arrayLength = myArray.length;
+		var tempArray = [];
+
+		for (index = 0; index < arrayLength; index += chunk_size) {
+			myChunk = myArray.slice(index, index + chunk_size);
+			// Do something if you want with the group
+			tempArray.push(myChunk);
 		}
 
-		return pages;
-	}, [accounts]);
-
-	const numOfPages = pages.length;
-
-	const onClick = (num) => {
-		if (num == -1 && pageNum == 0) {
-			//Do nothing
-		} else if (num == 1 && pageNum >= numOfPages - 1) {
-			//Do nothing
-		} else {
-			setPageNum(pageNum + num);
-		}
-	};
+		return tempArray;
+	}
 
 	return (
 		<div className='w-full mx-auto px-8 flex-grow flex'>
@@ -49,12 +57,12 @@ const Dashboard = ({ accounts }) => {
 										<th></th>
 									</tr>
 								</thead>
-								{pages[0] !== null && (
+								{page !== null && (
 									<tbody>
 										<Fragment>
-											{pages[pageNum] !== null &&
-												pages[pageNum] !== undefined &&
-												pages[pageNum].map((account, index) => (
+											{page !== null &&
+												page !== undefined &&
+												page.map((account, index) => (
 													<SavedPassword
 														key={index}
 														site={account.site}
@@ -67,8 +75,8 @@ const Dashboard = ({ accounts }) => {
 								)}
 							</table>
 
-							{pages[0] == null ||
-								(pages[0].length <= 0 && (
+							{page == null ||
+								(page.length <= 0 && (
 									<p className='p-5 m-5 text-red-400 text-center '>
 										You don't have any saved passwords.
 									</p>
@@ -93,9 +101,6 @@ const Dashboard = ({ accounts }) => {
 										<span className='relative z-0 inline-flex shadow-sm'>
 											<button
 												type='button'
-												onClick={(e) => {
-													onClick(-1);
-												}}
 												className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150'
 											>
 												<svg
@@ -114,14 +119,26 @@ const Dashboard = ({ accounts }) => {
 												type='button'
 												className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 hover:text-blue-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-blue-700 transition ease-in-out duration-150'
 											>
-												{pageNum + 1}
+												{currentPage - 1}
+											</button>
+											<button
+												type='button'
+												className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'
+											>
+												{currentPage}
+											</button>
+											<button
+												type='button'
+												className='hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'
+											>
+												{currentPage + 1}
 											</button>
 
 											<button
 												type='button'
-												onClick={(e) => {
-													onClick(1);
-												}}
+												// onClick={(e) => {
+												// 	onClick(e);
+												// }}
 												className='-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150'
 											>
 												<svg
