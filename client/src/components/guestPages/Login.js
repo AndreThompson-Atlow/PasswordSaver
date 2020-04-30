@@ -105,14 +105,14 @@ const Login = ({ login, isAuthenticated }) => {
 							</label>
 						</div>
 
-						<div className='text-sm leading-5'>
+						{/* <div className='text-sm leading-5'>
 							<Link
 								to='/'
 								className='font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150'
 							>
 								Forgot your password?
 							</Link>
-						</div>
+						</div> */}
 					</div>
 
 					<div className='mt-10'>
